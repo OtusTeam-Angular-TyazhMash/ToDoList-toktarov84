@@ -1,0 +1,9 @@
+<ul class="todo_table">
+    <li *ngFor="let item of itemList">
+        {{item.text}}
+        <button
+            (click)="deleteItem(item.id)"
+            class="button button--delete"
+        >Delete</button>
+    </li>
+</ul>

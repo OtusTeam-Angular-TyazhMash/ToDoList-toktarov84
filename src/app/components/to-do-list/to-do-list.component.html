@@ -1,11 +1,12 @@
 <div id="page">
     <h2>Todo List</h2>
-    <ul class="todo_table">
-        <li>Buy a new gaming laptop <button class="del">Delete</button></li>
-        <li>Complete previous task <button class="del">Delete</button></li>
-        <li>Create some angular app <button class="del">Delete</button></li>
-    </ul>
+    <app-list-item [itemList]="itemList" />
     <span>
-        <input placeholder="Add your new todo"><button class="add">Add task</button>
+        <input [(ngModel)]="text" placeholder="Add your new todo">
+        <button
+            (click)="addItem(text)"
+            class="button button--add"
+            [disabled]="!text"
+        >Add task</button>
     </span>
 </div>
