@@ -2,7 +2,13 @@
     <h2>Todo List</h2>
     <app-list-item [itemList]="itemList" />
     <span>
-        <input [(ngModel)]="text" placeholder="Add your new todo">
+        <mat-form-field subscriptSizing="dynamic">
+            <input
+                matInput [(ngModel)]="text"
+                placeholder="Add your new todo"
+                id="matInput"
+            >
+        </mat-form-field>
         <button
             (click)="addItem(text)"
             class="button button--add"
