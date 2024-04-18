@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-list-item',
@@ -6,13 +6,17 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./list-item.component.scss']
 })
 
-export class ListItemComponent {
+export class ListItemComponent implements OnInit {
   @Input() itemList!: {id: number, text: string}[];
   @Output() itemListChange = new EventEmitter();
+  isLoading: boolean = true;
 
   deleteItem(id: number) {
     this.itemList.splice(this.itemList.findIndex(it => it.id === id), 1);
     this.itemListChange.emit(this.itemList);
+  }
 
+  ngOnInit(): void {
+    setInterval(() => this.isLoading = false, 500);
   }
 }

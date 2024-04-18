@@ -17,9 +17,14 @@ export class ToDoListComponent {
   ];
 
   addItem(addText: string) {
+    /* Без проверки на пустоту, при быстрых кликах нижнего
+       Delete > Add Task иногда добавлялся пустой элемент. */
+    if (!addText) return;
+
     this.itemList.push({
       id: Math.max(...this.itemList.map(it => it.id)) + 1,
       text: addText
     });
+    this.text = '';
   }
 }

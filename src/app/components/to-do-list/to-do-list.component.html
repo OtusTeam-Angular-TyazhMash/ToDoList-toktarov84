@@ -9,10 +9,11 @@
                 id="matInput"
             >
         </mat-form-field>
-        <button
+        <app-button-component
             (click)="addItem(text)"
+            title="Add task"
             class="button button--add"
             [disabled]="!text"
-        >Add task</button>
+         />
     </span>
 </div>
