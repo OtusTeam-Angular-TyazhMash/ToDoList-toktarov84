@@ -17,6 +17,6 @@ export class ListItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    setInterval(() => this.isLoading = false, 500);
+    setTimeout(() => this.isLoading = false, 500);
   }
 }
