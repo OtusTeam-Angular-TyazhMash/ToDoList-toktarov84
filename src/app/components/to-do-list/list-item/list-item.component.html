@@ -1,9 +1,15 @@
 <ul class="todo_table">
-    <li *ngFor="let item of itemList">
-        {{item.text}}
-        <button
-            (click)="deleteItem(item.id)"
-            class="button button--delete"
-        >Delete</button>
-    </li>
+    <div *ngIf="isLoading" id="spinner">
+        <mat-spinner diameter="150"></mat-spinner>
+    </div>
+    <div *ngIf="!isLoading">
+        <li *ngFor="let item of itemList">
+            {{item.text}}
+            <app-button-component
+                (click)="deleteItem(item.id)"
+                title="Delete"
+                class="button button--delete"
+            />
+        </li>
+    </div>
 </ul>

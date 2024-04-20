@@ -26,15 +26,13 @@ ul {
    border-radius: 5px;
    color: white;
    border: none;
-   padding: 1.2%;
+   padding: 0.5em;
 }
 .button--delete {
    background-color: red;
-   padding: 0.5em;
 }
 .button--add {
    background-color: green;
-   padding: 0.5em;
 }
 .button--add:disabled {
    opacity: 0.5;
@@ -54,4 +52,9 @@ mat-form-field {
 }
 h2 {
    margin-bottom: 1em;
+}
+#spinner {
+   display: flex;
+   align-items: center;
+   justify-content: center;
 }
