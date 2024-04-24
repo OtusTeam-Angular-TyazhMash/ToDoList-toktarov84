@@ -6,6 +6,7 @@
         <span id="list_block">
             <div id="list">
                 <li
+                    [tooltip]="'Task'"
                     *ngFor="let item of itemList"
                     (click)="selectedItemId = item.id"
                     [class.selected]="item.id == selectedItemId"
