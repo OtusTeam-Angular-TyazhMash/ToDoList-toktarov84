@@ -1,7 +1,15 @@
 .todo_table {
-   width: 100%;
    padding: 0;
    font-size: 70%;
+}
+#list {
+   flex: 1;
+}
+#description {
+   width: 30%;
+   margin: 0.7em 0 0.7em 0;
+   padding: 0.3em;
+   font-size: 1em;
 }
 #page {
    margin: 4%;
@@ -44,10 +52,16 @@ span {
    gap: 0.5em;
    margin-top: 1em;
 }
+span#list_block {
+   align-items: start;
+}
 mat-form-field {
    flex: 1;
 }
-#matInput {
+#matInput1 {
+   font-size: 1.5em;
+}
+#matInput2 {
    font-size: 1.5em;
 }
 h2 {
@@ -57,4 +71,7 @@ h2 {
    display: flex;
    align-items: center;
    justify-content: center;
+}
+li.selected {
+   background-color: rgb(153, 177, 245);
 }

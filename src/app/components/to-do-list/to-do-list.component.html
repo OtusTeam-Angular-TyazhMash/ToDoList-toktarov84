@@ -1,19 +1,29 @@
 <div id="page">
     <h2>Todo List</h2>
     <app-list-item [itemList]="itemList" />
-    <span>
+    <span id="task_block">
         <mat-form-field subscriptSizing="dynamic">
             <input
                 matInput [(ngModel)]="text"
                 placeholder="Add your new todo"
-                id="matInput"
+                id="matInput1"
             >
         </mat-form-field>
         <app-button-component
-            (click)="addItem(text)"
+            [tooltip]="'Add task'"
+            (click)="addItem(text, description)"
             title="Add task"
             class="button button--add"
             [disabled]="!text"
          />
+    </span>
+    <span id="description_block">
+        <mat-form-field subscriptSizing="dynamic">
+            <textarea
+                matInput [(ngModel)]="description"
+                placeholder="Description"
+                id="matInput2"
+             ></textarea>
+        </mat-form-field>
     </span>
 </div>
