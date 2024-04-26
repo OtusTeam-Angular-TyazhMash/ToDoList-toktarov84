@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { ToDoListComponent } from './components/to-do-list/to-do-list.component';
 import { ListItemComponent } from './components/to-do-list/list-item/list-item.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SharedModuleModule } from './shared-module/shared-module.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,7 @@ import { SharedModuleModule } from './shared-module/shared-module.module';
     BrowserAnimationsModule, 
     MatInputModule,
     MatProgressSpinnerModule,
-    SharedModuleModule
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

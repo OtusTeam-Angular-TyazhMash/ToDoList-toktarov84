@@ -4,7 +4,7 @@ import { TooltipComponent } from './tooltip.component';
 @Directive({
   selector: '[tooltip]'
 })
-export class TooltipDirective {
+export class TooltipDirective implements OnDestroy {
   @Input() tooltip = '';
 
   private componentRef: ComponentRef<any> | null = null;
@@ -52,5 +52,9 @@ export class TooltipDirective {
       this.componentRef.destroy();
       this.componentRef = null;
     }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy();
   }
 }
