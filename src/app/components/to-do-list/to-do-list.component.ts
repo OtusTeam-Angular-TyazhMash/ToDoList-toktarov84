@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
+import { ToDoListService } from '../../to-do-list.service';
 
 @Component({
   selector: 'app-to-do-list',
@@ -8,14 +9,15 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 
 export class ToDoListComponent {
+  itemList: Map<number, {text: string, description: string}>;
   text: string = '';
   description: string = '';
 
-  itemList: Map<number, {text: string, description: string}> = new Map();
+  constructor(private toDoListService: ToDoListService) {
+    this.itemList = toDoListService.getItemList();
+  }
 
   addItem(addText: string, addDescription: string) {
-    /* Без проверки на пустоту, при быстрых кликах нижнего
-       Delete > Add Task иногда добавлялся пустой элемент. */
     if (!addText) return;
 
     this.itemList.set(
@@ -27,11 +29,5 @@ export class ToDoListComponent {
     );
     this.text = '';
     this.description = '';
-  }
-
-  constructor() {
-    this.itemList.set(0, {text: 'Buy a new gaming laptop', description: 'Description 1'});
-    this.itemList.set(1, {text: 'Complete previous task', description: 'Description 2'});
-    this.itemList.set(2, {text: 'Create some angular app', description: 'Description 3'});
   }
 }

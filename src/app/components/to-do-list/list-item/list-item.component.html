@@ -9,6 +9,7 @@
                     [tooltip]="'Task'"
                     *ngFor="let id of itemList.keys()"
                     (click)="selectedItemId = id"
+                    (dblclick) = "false"
                     [class.selected]="id == selectedItemId"
                 >
                     <ng-container>

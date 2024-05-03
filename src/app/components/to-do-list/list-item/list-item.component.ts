@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ToDoListService } from '../../../to-do-list.service';
 
 @Component({
   selector: 'app-list-item',
@@ -7,15 +8,17 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 
 export class ListItemComponent implements OnInit {
-  @Input() itemList!: Map<number, {text: string, description: string}>;
-  @Output() itemListChange = new EventEmitter();
+  itemList!: Map<number, {text: string, description: string}>;
   isLoading: boolean = true;
   selectedItemId!: number;
   description!: string;
+
+  constructor(private toDoListService: ToDoListService) {
+    this.itemList = toDoListService.getItemList();
+  }
   
   deleteItem(id: number) {
     this.itemList.delete(id);
-    this.itemListChange.emit(this.itemList);
     if (id == this.selectedItemId) {
       this.selectedItemId = -1;
     }
