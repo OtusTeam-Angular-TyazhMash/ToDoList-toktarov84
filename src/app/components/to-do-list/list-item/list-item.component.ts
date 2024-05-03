@@ -7,14 +7,14 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 
 export class ListItemComponent implements OnInit {
-  @Input() itemList!: {id: number, text: string, description: string}[];
+  @Input() itemList!: Map<number, {text: string, description: string}>;
   @Output() itemListChange = new EventEmitter();
   isLoading: boolean = true;
   selectedItemId!: number;
   description!: string;
   
   deleteItem(id: number) {
-    this.itemList.splice(this.itemList.findIndex(it => it.id === id), 1);
+    this.itemList.delete(id);
     this.itemListChange.emit(this.itemList);
     if (id == this.selectedItemId) {
       this.selectedItemId = -1;
@@ -25,8 +25,7 @@ export class ListItemComponent implements OnInit {
     if (this.selectedItemId == null) return "";
     if (this.selectedItemId < 0) return "";
     
-    const index = this.itemList.findIndex(it => it.id === this.selectedItemId);
-    return this.itemList[index].description;
+    return this.itemList.get(this.selectedItemId)?.description;
   }
 
   ngOnInit(): void {

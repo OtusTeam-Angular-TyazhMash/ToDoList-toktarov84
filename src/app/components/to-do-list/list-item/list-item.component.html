@@ -7,15 +7,15 @@
             <div id="list">
                 <li
                     [tooltip]="'Task'"
-                    *ngFor="let item of itemList"
-                    (click)="selectedItemId = item.id"
-                    [class.selected]="item.id == selectedItemId"
+                    *ngFor="let id of itemList.keys()"
+                    (click)="selectedItemId = id"
+                    [class.selected]="id == selectedItemId"
                 >
                     <ng-container>
-                        {{item.text}}
+                        {{itemList.get(id)?.text}}
                         <app-button
                             [tooltip]="'Delete'"
-                            (click)="deleteItem(item.id)"
+                            (click)="deleteItem(id)"
                             title="Delete"
                             class="button button--delete"
                         />
