@@ -25,7 +25,8 @@ export class ListItemComponent implements OnInit {
     if (this.selectedItemId == null) return "";
     if (this.selectedItemId < 0) return "";
     
-    return this.itemList[this.selectedItemId].description;
+    const index = this.itemList.findIndex(it => it.id === this.selectedItemId);
+    return this.itemList[index].description;
   }
 
   ngOnInit(): void {
