@@ -14,7 +14,10 @@
 #page {
    margin: 4%;
    font-size: 1.5em;
- }
+}
+h2 {
+   margin-bottom: 1em;
+}
 li {
    display: flex;
    justify-content: space-between;
@@ -24,6 +27,9 @@ li {
    padding: 0 0.6em 0 0.6em;
    align-items: center;
    font-size: 1.5em;
+}
+li.selected {
+   background-color: rgb(153, 177, 245);
 }
 ul {
    margin-top: 0;
@@ -57,21 +63,10 @@ span#list_block {
 }
 mat-form-field {
    flex: 1;
-}
-#matInput1 {
-   font-size: 1.5em;
-}
-#matInput2 {
-   font-size: 1.5em;
-}
-h2 {
-   margin-bottom: 1em;
+   font-size: 1em !important;
 }
 #spinner {
    display: flex;
    align-items: center;
    justify-content: center;
-}
-li.selected {
-   background-color: rgb(153, 177, 245);
 }

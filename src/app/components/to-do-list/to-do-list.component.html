@@ -2,11 +2,10 @@
     <h2>Todo List</h2>
     <app-list-item [itemList]="itemList" />
     <span id="task_block">
-        <mat-form-field subscriptSizing="dynamic">
+        <mat-form-field appearance="outline" subscriptSizing="dynamic">
             <input
                 matInput [(ngModel)]="text"
                 placeholder="Add your new todo"
-                id="matInput1"
             >
         </mat-form-field>
         <app-button
@@ -18,11 +17,10 @@
          />
     </span>
     <span id="description_block">
-        <mat-form-field subscriptSizing="dynamic">
+        <mat-form-field appearance="outline" subscriptSizing="dynamic">
             <textarea
                 matInput [(ngModel)]="description"
                 placeholder="Description"
-                id="matInput2"
              ></textarea>
         </mat-form-field>
     </span>
