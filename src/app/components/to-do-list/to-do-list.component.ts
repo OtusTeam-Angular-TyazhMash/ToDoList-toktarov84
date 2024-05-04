@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-to-do-list',
@@ -9,22 +9,29 @@ import { Component, ViewEncapsulation } from '@angular/core';
 
 export class ToDoListComponent {
   text: string = '';
+  description: string = '';
 
-  itemList: {id: number, text: string}[] = [
-    {id: 0, text: 'Buy a new gaming laptop'},
-    {id: 1, text: 'Complete previous task'},
-    {id: 2, text: 'Create some angular app'}
-  ];
+  itemList: Map<number, {text: string, description: string}> = new Map();
 
-  addItem(addText: string) {
+  addItem(addText: string, addDescription: string) {
     /* Без проверки на пустоту, при быстрых кликах нижнего
        Delete > Add Task иногда добавлялся пустой элемент. */
     if (!addText) return;
 
-    this.itemList.push({
-      id: Math.max(...this.itemList.map(it => it.id)) + 1,
-      text: addText
-    });
+    this.itemList.set(
+      Math.max(...this.itemList.keys(), -1) + 1,
+      {
+        text: addText,
+        description: addDescription
+      }
+    );
     this.text = '';
+    this.description = '';
+  }
+
+  constructor() {
+    this.itemList.set(0, {text: 'Buy a new gaming laptop', description: 'Description 1'});
+    this.itemList.set(1, {text: 'Complete previous task', description: 'Description 2'});
+    this.itemList.set(2, {text: 'Create some angular app', description: 'Description 3'});
   }
 }
