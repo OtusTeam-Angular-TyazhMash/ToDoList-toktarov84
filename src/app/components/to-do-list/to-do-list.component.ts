@@ -17,13 +17,13 @@ export class ToDoListComponent {
     this.itemList = toDoListService.getItemList();
   }
 
-  addItem(addText: string, addDescription: string) {
-    if (!addText) return;
+  addItem(text: string, addDescription: string) {
+    if (!text) return;
 
     this.itemList.set(
       Math.max(...this.itemList.keys(), -1) + 1,
       {
-        text: addText,
+        text: text,
         description: addDescription
       }
     );

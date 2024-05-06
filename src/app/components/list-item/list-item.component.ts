@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ToDoListService } from '../../../to-do-list.service';
+import { ToDoListService } from '../../to-do-list.service';
 
 @Component({
   selector: 'app-list-item',
@@ -11,6 +11,8 @@ export class ListItemComponent implements OnInit {
   itemList!: Map<number, {text: string, description: string}>;
   isLoading: boolean = true;
   selectedItemId!: number;
+  editedITemId!: number;
+  text!: string;
   description!: string;
 
   constructor(private toDoListService: ToDoListService) {
@@ -20,6 +22,32 @@ export class ListItemComponent implements OnInit {
   deleteItem(id: number) {
     this.itemList.delete(id);
     if (id == this.selectedItemId) {
+      this.selectedItemId = -1;
+    }
+  }
+
+  saveItem(text: string) {
+    if (!text) return;
+
+    this.itemList.get(this.editedITemId)!.text = text;
+    this.editedITemId = -1;
+  }
+
+  setSelectedId(id: number) {
+    if (this.editedITemId == id) {
+      this.selectedItemId = -1;
+    } else {
+      this.selectedItemId = id;
+      this.editedITemId = -1;
+    }
+  }
+
+  setEditedItemId(id: number) {
+    if (this.editedITemId == id) {
+      this.editedITemId = -1;
+    } else {
+      this.text = this.itemList.get(id)!.text;
+      this.editedITemId = id;
       this.selectedItemId = -1;
     }
   }
