@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { ToDoListService } from '../../to-do-list.service';
+import { ToDoListService } from './to-do-list.service';
+import { ToastService } from 'src/app/shared/toasts/toast.service';
 
 @Component({
   selector: 'app-to-do-list',
@@ -13,8 +14,11 @@ export class ToDoListComponent {
   text: string = '';
   description: string = '';
 
-  constructor(private toDoListService: ToDoListService) {
-    this.itemList = toDoListService.getItemList();
+  constructor(
+    private toDoListService: ToDoListService,
+    private toastService: ToastService
+  ) {
+    this.itemList = toDoListService.getItemList;
   }
 
   addItem(text: string, addDescription: string) {
@@ -29,5 +33,7 @@ export class ToDoListComponent {
     );
     this.text = '';
     this.description = '';
+
+    this.toastService.showToast("Item added");
   }
 }

@@ -12,7 +12,7 @@ export class ToDoListService {
     this.itemList.set(2, {text: 'Create some angular app', description: 'Description 3'});
   }
 
-  getItemList() {
+  get getItemList() {
     return this.itemList;
   }
 }

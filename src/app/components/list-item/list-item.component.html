@@ -9,7 +9,7 @@
                     [tooltip]="'Task'"
                     *ngFor="let id of itemList.keys()"
                     (click)="setSelectedId(id)"
-                    (dblclick) = "setEditedItemId(id)"
+                    (dblclick)="setEditedItemId(id)"
                     [class.selected]="id == selectedItemId"
                 >
                     <ng-container *ngIf="editedITemId != id">
@@ -27,8 +27,7 @@
                                 matInput [(ngModel)]="text"
                                 placeholder="Edit your todo"
                             >
-                        </mat-form-field>
-                        <pre> </pre>
+                        </mat-form-field><pre> </pre>
                         <app-button
                             [tooltip]="'Save'"
                             (click)="saveItem(text)"

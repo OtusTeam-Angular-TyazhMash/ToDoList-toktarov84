@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ToDoListService } from '../../to-do-list.service';
+import { ToDoListService } from '../to-do-list/to-do-list.service';
+import { ToastService } from 'src/app/shared/toasts/toast.service';
 
 @Component({
   selector: 'app-list-item',
@@ -15,8 +16,11 @@ export class ListItemComponent implements OnInit {
   text!: string;
   description!: string;
 
-  constructor(private toDoListService: ToDoListService) {
-    this.itemList = toDoListService.getItemList();
+  constructor(
+    private toDoListService: ToDoListService,
+    private toastService: ToastService
+  ) {
+    this.itemList = toDoListService.getItemList;
   }
   
   deleteItem(id: number) {
@@ -24,6 +28,8 @@ export class ListItemComponent implements OnInit {
     if (id == this.selectedItemId) {
       this.selectedItemId = -1;
     }
+
+    this.toastService.showToast("Item deleted")
   }
 
   saveItem(text: string) {
@@ -31,6 +37,8 @@ export class ListItemComponent implements OnInit {
 
     this.itemList.get(this.editedITemId)!.text = text;
     this.editedITemId = -1;
+
+    this.toastService.showToast("Item saved")
   }
 
   setSelectedId(id: number) {
