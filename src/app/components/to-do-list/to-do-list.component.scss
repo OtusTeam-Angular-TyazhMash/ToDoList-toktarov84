@@ -42,6 +42,12 @@ ul {
    border: none;
    padding: 0.5em;
 }
+.button--save {
+   background-color: blue;
+}
+.button--save:disabled {
+   opacity: 0.5;
+}
 .button--delete {
    background-color: red;
 }

@@ -1,4 +1,6 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
+import { ToDoListService } from './to-do-list.service';
+import { ToastService } from 'src/app/shared/toasts/toast.service';
 
 @Component({
   selector: 'app-to-do-list',
@@ -8,30 +10,30 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 
 export class ToDoListComponent {
+  itemList: Map<number, {text: string, description: string}>;
   text: string = '';
   description: string = '';
 
-  itemList: Map<number, {text: string, description: string}> = new Map();
+  constructor(
+    private toDoListService: ToDoListService,
+    private toastService: ToastService
+  ) {
+    this.itemList = toDoListService.getItemList;
+  }
 
-  addItem(addText: string, addDescription: string) {
-    /* Без проверки на пустоту, при быстрых кликах нижнего
-       Delete > Add Task иногда добавлялся пустой элемент. */
-    if (!addText) return;
+  addItem(text: string, addDescription: string) {
+    if (!text) return;
 
     this.itemList.set(
       Math.max(...this.itemList.keys(), -1) + 1,
       {
-        text: addText,
+        text: text,
         description: addDescription
       }
     );
     this.text = '';
     this.description = '';
-  }
 
-  constructor() {
-    this.itemList.set(0, {text: 'Buy a new gaming laptop', description: 'Description 1'});
-    this.itemList.set(1, {text: 'Complete previous task', description: 'Description 2'});
-    this.itemList.set(2, {text: 'Create some angular app', description: 'Description 3'});
+    this.toastService.showToast("Item added");
   }
 }

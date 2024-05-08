@@ -8,16 +8,32 @@
                 <li
                     [tooltip]="'Task'"
                     *ngFor="let id of itemList.keys()"
-                    (click)="selectedItemId = id"
+                    (click)="setSelectedId(id)"
+                    (dblclick)="setEditedItemId(id)"
                     [class.selected]="id == selectedItemId"
                 >
-                    <ng-container>
+                    <ng-container *ngIf="editedITemId != id">
                         {{itemList.get(id)?.text}}
                         <app-button
                             [tooltip]="'Delete'"
                             (click)="deleteItem(id)"
                             title="Delete"
                             class="button button--delete"
+                        />
+                    </ng-container>
+                    <ng-container *ngIf="editedITemId == id">
+                        <mat-form-field appearance="outline" subscriptSizing="dynamic">
+                            <input
+                                matInput [(ngModel)]="text"
+                                placeholder="Edit your todo"
+                            >
+                        </mat-form-field><pre> </pre>
+                        <app-button
+                            [tooltip]="'Save'"
+                            (click)="saveItem(text)"
+                            title="Save"
+                            class="button button--save"
+                            [disabled]="!text"
                         />
                     </ng-container>
                 </li>
