@@ -11,10 +11,9 @@
         <app-button
             [tooltip]="'Add task'"
             (click)="addItem(text, description)"
-            title="Add task"
             class="button button--add"
             [disabled]="!text"
-         />
+         >Add task</app-button>
     </span>
     <span id="description_block">
         <mat-form-field appearance="outline" subscriptSizing="dynamic">
