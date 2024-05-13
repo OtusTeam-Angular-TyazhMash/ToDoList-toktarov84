@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ToastService } from 'src/app/shared/toasts/toast.service';
 
-export enum Status { InProgress = 0, Complete = 1}
+export enum Status { InProgress = 0, Complete = 1 }
 
 @Injectable({
   providedIn: 'root'

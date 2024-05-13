@@ -15,7 +15,9 @@
                             [checked]="toDoListService.itemList.get(id)?.status == 1"
                             (click)="toDoListService.setStatus(id)"
                         ></mat-checkbox>
-                        {{toDoListService.itemList.get(id)?.text}}
+                        <div id="task_text">
+                            {{toDoListService.itemList.get(id)?.text}}
+                        </div>
                         <app-button
                             [tooltip]="'Delete'"
                             (click)="toDoListService.deleteItem(id)"
