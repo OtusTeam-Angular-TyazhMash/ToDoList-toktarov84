@@ -1,42 +1,46 @@
 <ul class="todo_table">
-    <app-spinner *ngIf="isLoading" id="spinner"/>
-    <ng-container *ngIf="!isLoading">
+    <app-spinner *ngIf="toDoListService.isLoading" id="spinner"/>
+    <ng-container *ngIf="!toDoListService.isLoading">
         <span id="list_block">
             <div id="list">
                 <li
                     [tooltip]="'Task'"
-                    *ngFor="let id of itemList.keys()"
-                    (click)="setSelectedId(id)"
-                    (dblclick)="setEditedItemId(id)"
-                    [class.selected]="id == selectedItemId"
+                    *ngFor="let id of toDoListService.itemList.keys()"
+                    (click)="toDoListService.setSelectedId(id)"
+                    (dblclick)="toDoListService.setEditedItemId(id)"
+                    [class.selected]="id == toDoListService.selectedItemId"
                 >
-                    <ng-container *ngIf="editedITemId != id">
-                        {{itemList.get(id)?.text}}
+                    <ng-container *ngIf="toDoListService.editedITemId != id">
+                        <mat-checkbox 
+                            [checked]="toDoListService.itemList.get(id)?.status == 1"
+                            (click)="toDoListService.setStatus(id)"
+                        ></mat-checkbox>
+                        {{toDoListService.itemList.get(id)?.text}}
                         <app-button
                             [tooltip]="'Delete'"
-                            (click)="deleteItem(id)"
+                            (click)="toDoListService.deleteItem(id)"
                             class="button button--delete"
                         >Delete</app-button>
                     </ng-container>
-                    <ng-container *ngIf="editedITemId == id">
+                    <ng-container *ngIf="toDoListService.editedITemId == id">
                         <mat-form-field appearance="outline" subscriptSizing="dynamic">
                             <input
-                                matInput [(ngModel)]="text"
+                                matInput [(ngModel)]="toDoListService.editText"
                                 placeholder="Edit your todo"
                             >
                         </mat-form-field><pre> </pre>
                         <app-button
                             [tooltip]="'Save'"
-                            (click)="saveItem(text)"
+                            (click)="toDoListService.saveItem(toDoListService.editText)"
                             class="button button--save"
-                            [disabled]="!text"
+                            [disabled]="!toDoListService.editText"
                         >Save</app-button>
                     </ng-container>
                 </li>
             </div>
             <div
                 id="description"
-                [textContent]="currentDescription()"
+                [textContent]="toDoListService.currentDescription()"
             ></div>
         </span>
     </ng-container>
