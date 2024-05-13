@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ToastService } from 'src/app/shared/toasts/toast.service';
 
-export enum Status { InProgress = 0, Complete = 1 }
+export class Status {
+  static ALL = null;
+  static InProgress = "InProgress";
+  static Complete = "Complete";
+}
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +18,7 @@ export class ToDoListService {
   isLoading: boolean = true;
   selectedItemId!: number;
   editedITemId!: number;
+  todoFilterPosition: Status | null = Status.ALL;
 
   constructor(private toastService: ToastService) {
     this.itemList.set(0, {
@@ -31,6 +36,13 @@ export class ToDoListService {
       description: 'Description 3',
       status: Status.InProgress
     });
+  }
+
+  todoFilter(itemList: Map<number, {text: string, description: string, status: Status}>) {
+    if (this.todoFilterPosition == null) {
+      return itemList;
+    }
+    return new Map([...itemList].filter(([k, v]) => v.status === this.todoFilterPosition));
   }
 
   addItem(text: string, addDescription: string) {

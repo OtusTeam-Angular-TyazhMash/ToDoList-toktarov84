@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { AppComponent } from './app.component';
 import { ToDoListComponent } from './components/to-do-list/to-do-list.component';
@@ -24,6 +25,7 @@ import { SharedModule } from './shared/shared.module';
     MatInputModule,
     MatProgressSpinnerModule,
     MatCheckboxModule,
+    MatRadioModule,
     SharedModule
   ],
   providers: [],

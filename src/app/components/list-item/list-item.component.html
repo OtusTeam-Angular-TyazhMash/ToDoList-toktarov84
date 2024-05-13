@@ -3,16 +3,21 @@
     <ng-container *ngIf="!toDoListService.isLoading">
         <span id="list_block">
             <div id="list">
+                <mat-radio-group [(ngModel)]="toDoListService.todoFilterPosition">
+                    <mat-radio-button>ALL</mat-radio-button>
+                    <mat-radio-button value="InProgress">InProgress</mat-radio-button>
+                    <mat-radio-button value="Complete">Complete</mat-radio-button>
+                </mat-radio-group>
                 <li
                     [tooltip]="'Task'"
-                    *ngFor="let id of toDoListService.itemList.keys()"
+                    *ngFor="let id of toDoListService.todoFilter(toDoListService.itemList).keys()"
                     (click)="toDoListService.setSelectedId(id)"
                     (dblclick)="toDoListService.setEditedItemId(id)"
                     [class.selected]="id == toDoListService.selectedItemId"
                 >
                     <ng-container *ngIf="toDoListService.editedITemId != id">
                         <mat-checkbox 
-                            [checked]="toDoListService.itemList.get(id)?.status == 1"
+                            [checked]="toDoListService.itemList.get(id)?.status === 'Complete'"
                             (click)="toDoListService.setStatus(id)"
                         ></mat-checkbox>
                         <div id="task_text">
