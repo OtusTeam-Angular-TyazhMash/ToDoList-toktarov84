@@ -10,6 +10,7 @@
    margin: 0.7em 0 0.7em 0;
    padding: 0.3em;
    font-size: 1em;
+   overflow-wrap: break-word;
 }
 #page {
    margin: 4%;
@@ -27,6 +28,10 @@ li {
    padding: 0 0.6em 0 0.6em;
    align-items: center;
    font-size: 1.5em;
+   gap: 0.5em;
+}
+#task_text {
+   flex: 1;
 }
 li.selected {
    background-color: rgb(153, 177, 245);
@@ -42,6 +47,12 @@ ul {
    border: none;
    padding: 0.5em;
 }
+.button--save {
+   background-color: blue;
+}
+.button--save:disabled {
+   opacity: 0.5;
+}
 .button--delete {
    background-color: red;
 }
@@ -54,9 +65,11 @@ ul {
 span {
    display: flex;
    justify-content: space-between;
+   margin-top: 1em;
+}
+span#task_block {
    align-items: center;
    gap: 0.5em;
-   margin-top: 1em;
 }
 span#list_block {
    align-items: start;
@@ -69,4 +82,7 @@ mat-form-field {
    display: flex;
    align-items: center;
    justify-content: center;
+}
+mat-radio-button {
+   padding-right: 1em;
 }
