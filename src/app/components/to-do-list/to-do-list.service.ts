@@ -27,7 +27,7 @@ export class ToDoListService {
   isLoading: boolean = true;
   selectedId!: number;
   editedId!: number;
-  filterStatus: Status | null = Status.ALL;
+  filterStatus: Status|null = Status.ALL;
 
   constructor(
     private toastService: ToastService,
@@ -63,13 +63,13 @@ export class ToDoListService {
   addItem(text: string, addDescription: string) {
     if (!text) return;
 
-    this.httpClient.post(this.url, {
+    this.httpClient.post<Item>(this.url, {
       text: text, 
       description: addDescription, 
       status: Status.InProgress
     }).subscribe({
       next: (item) => {
-        this.itemList.push(item as Item);
+        this.itemList.push(item);
         this.addText = '';
         this.description = '';
         this.toastService.showToast("Item added");
