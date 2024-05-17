@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { ToDoListService } from '../to-do-list/to-do-list.service';
 
 @Component({
@@ -7,10 +7,6 @@ import { ToDoListService } from '../to-do-list/to-do-list.service';
   styleUrls: ['./list-item.component.scss']
 })
 
-export class ListItemComponent implements OnInit {
-  constructor(protected toDoListService: ToDoListService) {}
-
-  ngOnInit(): void {
-    setTimeout(() => this.toDoListService.isLoading = false, 500);
-  }
+export class ListItemComponent {
+  constructor(protected dataService: ToDoListService) {}
 }

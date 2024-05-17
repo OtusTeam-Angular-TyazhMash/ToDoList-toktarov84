@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { ToDoListService } from './to-do-list.service';
 
 @Component({
@@ -9,5 +9,5 @@ import { ToDoListService } from './to-do-list.service';
 })
 
 export class ToDoListComponent {
-  constructor(protected toDoListService: ToDoListService) {}
+  constructor(protected dataService: ToDoListService) { }
 }

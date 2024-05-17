@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ToastService } from 'src/app/shared/toasts/toast.service';
+import { HttpClient } from "@angular/common/http";
 
 export class Status {
   static ALL = null;
@@ -7,110 +8,132 @@ export class Status {
   static Complete = "Complete";
 }
 
+export class Item {
+  id!: number;
+  text!: string;
+  description!: string;
+  status!: Status;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class ToDoListService {
-  itemList: Map<number, {text: string, description: string, status: Status}> = new Map();
+  url: string = 'http://localhost:3000/tasks';
+  itemList!: Item[];
   addText: string = '';
   editText: string = '';
   description: string = '';
   isLoading: boolean = true;
-  selectedItemId!: number;
-  editedITemId!: number;
-  todoFilterPosition: Status | null = Status.ALL;
+  selectedId!: number;
+  editedId!: number;
+  filterStatus: Status | null = Status.ALL;
 
-  constructor(private toastService: ToastService) {
-    this.itemList.set(0, {
-      text: 'Buy a new gaming laptop', 
-      description: 'Description 1',
-      status: Status.InProgress
-    });
-    this.itemList.set(1, {
-      text: 'Complete previous task', 
-      description: 'Description 2',
-      status: Status.InProgress
-    });
-    this.itemList.set(2, {
-      text: 'Create some angular app', 
-      description: 'Description 3',
-      status: Status.InProgress
-    });
+  constructor(
+    private toastService: ToastService,
+    private httpClient: HttpClient
+  ) {
+    this.loadItemListFromServer();
   }
 
-  todoFilter(itemList: Map<number, {text: string, description: string, status: Status}>) {
-    if (this.todoFilterPosition == null) {
-      return itemList;
-    }
-    return new Map([...itemList].filter(([k, v]) => v.status === this.todoFilterPosition));
+  getItem(id: number) {
+    return this.itemList.find(item => item.id === id);
+  }
+
+  toDoFilter() {
+    if (this.filterStatus == null) return this.itemList;
+
+    return [...this.itemList].filter(
+      item => item.status === this.filterStatus
+    );
+  }
+
+  loadItemListFromServer() {
+    this.isLoading = true;
+
+    this.httpClient.get<Item[]>(this.url).subscribe({
+      next: (items) => {
+        this.itemList = items;
+        setTimeout(() => this.isLoading = false, 200);
+        this.toastService.showToast("Data received");
+      }
+    });
   }
 
   addItem(text: string, addDescription: string) {
     if (!text) return;
 
-    this.itemList.set(
-      Math.max(...this.itemList.keys(), -1) + 1,
-      {
-        text: text,
-        description: addDescription,
-        status: Status.InProgress
+    this.httpClient.post(this.url, {
+      text: text, 
+      description: addDescription, 
+      status: Status.InProgress
+    }).subscribe({
+      next: (item) => {
+        this.itemList.push(item as Item);
+        this.addText = '';
+        this.description = '';
+        this.toastService.showToast("Item added");
       }
-    );
-    this.addText = '';
-    this.description = '';
-
-    this.toastService.showToast("Item added");
+    });
   }
 
   deleteItem(id: number) {
-    this.itemList.delete(id);
-    if (id == this.selectedItemId) {
-      this.selectedItemId = -1;
-    }
-
-    this.toastService.showToast("Item deleted")
+    this.httpClient.delete(this.url +'/'+ id).subscribe({
+      next: () => {
+        this.itemList = this.itemList.filter(it => it.id !== id);
+        if (id == this.selectedId) this.selectedId = -1;
+        this.toastService.showToast("Item deleted")
+      } 
+    });
   }
 
-  saveItem(text: string) {
+  editItem(text: string) {
     if (!text) return;
 
-    this.itemList.get(this.editedITemId)!.text = text;
-    this.editedITemId = -1;
+    this.httpClient.patch(this.url +'/'+ this.editedId, {text: text}).subscribe({
+      next: () => {
+        this.getItem(this.editedId)!.text = text;
+        this.editedId = -1;
+        this.toastService.showToast("Item edited")
+      }
+    });
+  }
 
-    this.toastService.showToast("Item saved")
+  setStatus(id: number) {
+    var status = Status.InProgress;
+    if (this.getItem(id)!.status === Status.InProgress) {
+      status = Status.Complete;
+    }
+    this.httpClient.patch(this.url +'/'+ id, {status: status}).subscribe({
+      next: () => {
+        this.getItem(id)!.status = status;
+      }
+    });
   }
 
   setSelectedId(id: number) {
-    if (this.editedITemId == id) {
-      this.selectedItemId = -1;
+    if (this.editedId == id) {
+      this.selectedId = -1;
     } else {
-      this.selectedItemId = id;
-      this.editedITemId = -1;
+      this.selectedId = id;
+      this.editedId = -1;
     }
   }
 
   setEditedItemId(id: number) {
-    if (this.editedITemId == id) {
-      this.editedITemId = -1;
+    if (this.editedId == id) {
+      this.editedId = -1;
     } else {
-      this.editText = this.itemList.get(id)!.text;
-      this.editedITemId = id;
-      this.selectedItemId = -1;
-    }
-  }
-
-  setStatus(id: number) {
-    if (this.itemList.get(id)!.status == Status.Complete) {
-      this.itemList.get(id)!.status = Status.InProgress;
-    } else {
-      this.itemList.get(id)!.status = Status.Complete;
+      this.editText = this.getItem(id)!.text;
+      this.editedId = id;
+      this.selectedId = -1;
     }
   }
 
   currentDescription() {
-    if (this.selectedItemId == null) return "";
-    if (this.selectedItemId < 0) return "";
+    if (this.selectedId == null) return "";
+    if (this.selectedId < 0) return "";
     
-    return this.itemList.get(this.selectedItemId)?.description;
+    return this.getItem(this.selectedId)?.description;
   }
 }

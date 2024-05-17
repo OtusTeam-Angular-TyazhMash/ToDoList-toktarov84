@@ -1,53 +1,57 @@
 <ul class="todo_table">
-    <app-spinner *ngIf="toDoListService.isLoading" id="spinner"/>
-    <ng-container *ngIf="!toDoListService.isLoading">
+    <app-spinner *ngIf="dataService.isLoading" id="spinner"/>
+    <ng-container *ngIf="!dataService.isLoading">
         <span id="list_block">
             <div id="list">
-                <mat-radio-group [(ngModel)]="toDoListService.todoFilterPosition">
+                <mat-radio-group [(ngModel)]="dataService.filterStatus">
                     <mat-radio-button>ALL</mat-radio-button>
                     <mat-radio-button value="InProgress">InProgress</mat-radio-button>
                     <mat-radio-button value="Complete">Complete</mat-radio-button>
                 </mat-radio-group>
                 <li
                     [tooltip]="'Task'"
-                    *ngFor="let id of toDoListService.todoFilter(toDoListService.itemList).keys()"
-                    (click)="toDoListService.setSelectedId(id)"
-                    (dblclick)="toDoListService.setEditedItemId(id)"
-                    [class.selected]="id == toDoListService.selectedItemId"
+                    *ngFor="let item of dataService.toDoFilter()"
+                    (click)="dataService.setSelectedId(item.id)"
+                    (dblclick)="dataService.setEditedItemId(item.id)"
+                    [class.selected]="item.id == dataService.selectedId"
                 >
-                    <ng-container *ngIf="toDoListService.editedITemId != id">
+                    <ng-container *ngIf="dataService.editedId != item.id">
                         <mat-checkbox 
-                            [checked]="toDoListService.itemList.get(id)?.status === 'Complete'"
-                            (click)="toDoListService.setStatus(id)"
+                            [checked]="dataService.getItem(item.id)?.status === 'Complete'"
+                            (click)="dataService.setStatus(item.id)"
                         ></mat-checkbox>
                         <div id="task_text">
-                            {{toDoListService.itemList.get(id)?.text}}
+                            {{dataService.getItem(item.id)?.text}}
                         </div>
                         <app-button
                             [tooltip]="'Delete'"
-                            (click)="toDoListService.deleteItem(id)"
+                            (click)="dataService.deleteItem(item.id)"
                             class="button button--delete"
                         >Delete</app-button>
                     </ng-container>
-                    <ng-container *ngIf="toDoListService.editedITemId == id">
+                    <ng-container *ngIf="dataService.editedId == item.id">
+                        <mat-checkbox 
+                            [checked]="dataService.getItem(item.id)?.status === 'Complete'"
+                            (click)="dataService.setStatus(item.id)"
+                        ></mat-checkbox>
                         <mat-form-field appearance="outline" subscriptSizing="dynamic">
                             <input
-                                matInput [(ngModel)]="toDoListService.editText"
+                                matInput [(ngModel)]="dataService.editText"
                                 placeholder="Edit your todo"
                             >
                         </mat-form-field><pre> </pre>
                         <app-button
                             [tooltip]="'Save'"
-                            (click)="toDoListService.saveItem(toDoListService.editText)"
+                            (click)="dataService.editItem(dataService.editText)"
                             class="button button--save"
-                            [disabled]="!toDoListService.editText"
+                            [disabled]="!dataService.editText"
                         >Save</app-button>
                     </ng-container>
                 </li>
             </div>
             <div
                 id="description"
-                [textContent]="toDoListService.currentDescription()"
+                [textContent]="dataService.currentDescription()"
             ></div>
         </span>
     </ng-container>
