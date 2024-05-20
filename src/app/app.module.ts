@@ -14,13 +14,15 @@ import { SharedModule } from './shared/shared.module';
 import { TodoCreateItemComponent } from './components/todo-create-item/todo-create-item.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutesComponent } from './app.routes';
+import { ToDoItemViewComponent } from './components/to-do-item-view/to-do-item-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ToDoListComponent,
     ListItemComponent,
-    TodoCreateItemComponent
+    TodoCreateItemComponent,
+    ToDoItemViewComponent
   ],
   imports: [
     BrowserModule, 

@@ -23,7 +23,8 @@ export class ToDoListService {
   itemList!: Item[];
   addText: string = '';
   editText: string = '';
-  description: string = '';
+  addDescription: string = '';
+  currentDescription: string = '';
   isLoading: boolean = true;
   selectedId!: number;
   editedId!: number;
@@ -71,7 +72,7 @@ export class ToDoListService {
       next: (item) => {
         this.itemList.push(item);
         this.addText = '';
-        this.description = '';
+        this.addDescription = '';
         this.toastService.showToast("Item added");
       }
     });
@@ -82,6 +83,7 @@ export class ToDoListService {
       next: () => {
         this.itemList = this.itemList.filter(it => it.id !== id);
         if (id == this.selectedId) this.selectedId = -1;
+        this.currentDescription = "";
         this.toastService.showToast("Item deleted")
       } 
     });
@@ -118,6 +120,11 @@ export class ToDoListService {
       this.selectedId = id;
       this.editedId = -1;
     }
+
+    if (this.selectedId == null) return;
+    if (this.selectedId < 0) return;
+    
+    this.currentDescription = this.getItem(this.selectedId)!.description;
   }
 
   setEditedItemId(id: number) {
@@ -128,12 +135,5 @@ export class ToDoListService {
       this.editedId = id;
       this.selectedId = -1;
     }
-  }
-
-  currentDescription() {
-    if (this.selectedId == null) return "";
-    if (this.selectedId < 0) return "";
-    
-    return this.getItem(this.selectedId)?.description;
   }
 }

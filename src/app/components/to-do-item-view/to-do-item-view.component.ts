@@ -2,11 +2,9 @@ import { Component } from '@angular/core';
 import { ToDoListService } from '../to-do-list/to-do-list.service';
 
 @Component({
-  selector: 'app-list-item',
-  templateUrl: './list-item.component.html',
-  styleUrls: ['./list-item.component.scss']
+  selector: 'app-to-do-item-view',
+  templateUrl: './to-do-item-view.component.html'
 })
-
-export class ListItemComponent {
+export class ToDoItemViewComponent {
   constructor(protected dataService: ToDoListService) {}
 }
