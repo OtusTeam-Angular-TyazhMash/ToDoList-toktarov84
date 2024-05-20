@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 import { ToDoListService } from './to-do-list.service';
 
 @Component({
