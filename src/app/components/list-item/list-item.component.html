@@ -10,9 +10,9 @@
         <li
             [tooltip]="'Task'"
             *ngFor="let item of dataService.toDoFilter()"
-            (click)="dataService.setSelectedId(item.id)"
             (dblclick)="dataService.setEditedItemId(item.id)"
-            [class.selected]="item.id == dataService.selectedId"
+            [routerLink]="[item.id]"
+            routerLinkActive="selected"
         >
             <ng-container *ngIf="dataService.editedId != item.id">
                 <mat-checkbox 

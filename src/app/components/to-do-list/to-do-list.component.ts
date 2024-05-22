@@ -8,5 +8,5 @@ import { ToDoListService } from './to-do-list.service';
 })
 
 export class ToDoListComponent {
-  constructor(protected dataService: ToDoListService) { }
+  constructor(protected dataService: ToDoListService) {}
 }

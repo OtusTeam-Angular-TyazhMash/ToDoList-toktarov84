@@ -2,12 +2,14 @@
 
 html, body { height: 100%; }
 body {
-    margin: -0.5em 1em 0 1em;
+    margin: 0 1em 0 1em;
     font-family: Roboto, "Helvetica Neue", sans-serif;
     font-size: 1.5em;
 }
 span {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+}
+h1, h2 {
+    margin: 0.5em 0;
 }
