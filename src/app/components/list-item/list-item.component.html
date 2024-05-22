@@ -1,4 +1,4 @@
-<h1>Todo List</h1>
+<h1 (click)="dataService.deselect()">Todo List</h1>
 <mat-radio-group [(ngModel)]="dataService.filterStatus">
     <mat-radio-button>ALL</mat-radio-button>
     <mat-radio-button value="InProgress">InProgress</mat-radio-button>

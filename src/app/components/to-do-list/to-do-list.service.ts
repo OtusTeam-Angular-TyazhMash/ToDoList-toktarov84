@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ToastService } from 'src/app/shared/toasts/toast.service';
 import { HttpClient } from "@angular/common/http";
+import { Router } from '@angular/router';
 
 export class Status {
   static ALL = null;
@@ -30,9 +31,14 @@ export class ToDoListService {
 
   constructor(
     private toastService: ToastService,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private router: Router
   ) {
     this.loadItemListFromServer();
+  }
+
+  deselect() {
+    this.router.navigate(['']);
   }
 
   getItem(id: number) {
