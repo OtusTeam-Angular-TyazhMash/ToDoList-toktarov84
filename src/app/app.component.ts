@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
-  title = 'hw1_toDoList';
+  title = 'TasksBoard';
 }

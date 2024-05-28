@@ -1,5 +1,5 @@
 import { ApplicationRef, ComponentRef, EmbeddedViewRef, Injectable, createComponent } from '@angular/core';
-import { ToastsComponent } from './toasts.component';
+import { ToastsComponent } from '../shared/toasts/toasts.component';
 
 @Injectable({
   providedIn: 'root'

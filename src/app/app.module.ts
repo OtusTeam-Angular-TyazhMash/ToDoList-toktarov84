@@ -7,7 +7,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 
 import { AppComponent } from './app.component';
-import { ToDoListComponent } from './components/to-do-list/to-do-list.component';
+import { ToDoListComponent } from './components/backlog/backlog.component';
 import { ListItemComponent } from './components/list-item/list-item.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
@@ -15,6 +15,7 @@ import { TodoCreateItemComponent } from './components/todo-create-item/todo-crea
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutesComponent } from './app.routes';
 import { ToDoItemViewComponent } from './components/to-do-item-view/to-do-item-view.component';
+import { BoardComponent } from './components/board/board.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ToDoItemViewComponent } from './components/to-do-item-view/to-do-item-v
     ToDoListComponent,
     ListItemComponent,
     TodoCreateItemComponent,
-    ToDoItemViewComponent
+    ToDoItemViewComponent,
+    BoardComponent
   ],
   imports: [
     BrowserModule, 

@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { DataService } from '../../services/data.service';
 
 @Component({
-  selector: 'app-list-item',
-  templateUrl: './list-item.component.html',
-  styleUrls: ['./list-item.component.scss']
+  selector: 'app-backlog',
+  templateUrl: './backlog.component.html',
+  styleUrls: ['./backlog.component.scss']
 })
 
-export class ListItemComponent {
+export class ToDoListComponent {
   constructor(protected dataService: DataService) {}
 }

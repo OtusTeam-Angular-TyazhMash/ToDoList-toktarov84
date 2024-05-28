@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Item, ToDoListService } from '../to-do-list/to-do-list.service';
+import { Item, DataService } from '../../services/data.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ToDoItemViewComponent {
   constructor(
-    protected dataService: ToDoListService,
+    protected dataService: DataService,
     protected activatedRoute: ActivatedRoute
   ) {}
 

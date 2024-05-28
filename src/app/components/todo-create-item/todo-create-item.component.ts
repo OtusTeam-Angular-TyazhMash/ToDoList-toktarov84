@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ToDoListService } from '../to-do-list/to-do-list.service';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-todo-create-item',
@@ -7,5 +7,5 @@ import { ToDoListService } from '../to-do-list/to-do-list.service';
   styleUrls: ['./todo-create-item.component.scss']
 })
 export class TodoCreateItemComponent {
-  constructor(protected toDoListService: ToDoListService) {}
+  constructor(protected toDoListService: DataService) {}
 }
