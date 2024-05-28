@@ -9,7 +9,7 @@
     <ng-container *ngIf="!dataService.isLoading">
         <li
             [tooltip]="'Task'"
-            *ngFor="let item of dataService.toDoFilter()"
+            *ngFor="let item of dataService.toDoFilter(dataService.filterStatus)"
             (dblclick)="dataService.setEditedItemId(item.id)"
             [routerLink]="[item.id]"
             routerLinkActive="selected"

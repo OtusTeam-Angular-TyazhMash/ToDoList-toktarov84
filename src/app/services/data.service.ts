@@ -46,11 +46,11 @@ export class DataService {
     return this.itemList.find(item => item.id === id);
   }
 
-  toDoFilter() {
-    if (this.filterStatus == null) return this.itemList;
+  toDoFilter(filterStatus: Status|null) {
+    if (filterStatus == null) return this.itemList;
 
     return [...this.itemList].filter(
-      item => item.status === this.filterStatus
+      item => item.status === filterStatus
     );
   }
 

@@ -3,13 +3,13 @@
     {
       "text": "Buy a new gaming laptop",
       "description": "Description 1",
-      "status": "InProgress",
+      "status": "Complete",
       "id": 1
     },
     {
       "text": "Complete previous task",
       "description": "Description 2",
-      "status": "InProgress",
+      "status": "Complete",
       "id": 2
     },
     {
