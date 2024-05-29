@@ -8,13 +8,13 @@ import { MatRadioModule } from '@angular/material/radio';
 
 import { AppComponent } from './app.component';
 import { ToDoListComponent } from './components/backlog/backlog.component';
-import { ListItemComponent } from './components/list-item/list-item.component';
+import { ListItemComponent } from './components/backlog/list-item/list-item.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
-import { TodoCreateItemComponent } from './components/todo-create-item/todo-create-item.component';
+import { TodoCreateItemComponent } from './components/backlog/todo-create-item/todo-create-item.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutesComponent } from './app.routes';
-import { ToDoItemViewComponent } from './components/to-do-item-view/to-do-item-view.component';
+import { ToDoItemViewComponent } from './components/backlog/to-do-item-view/to-do-item-view.component';
 import { BoardComponent } from './components/board/board.component';
 
 @NgModule({
