@@ -1,7 +1,7 @@
 <div>
     <h1>Board</h1>
     <span>
-        <ul #ul1>
+        <ul>
             <h5>All ({{ dataService.toDoFilter(null).length }})</h5>
             <app-spinner *ngIf="dataService.isLoading" id="spinner"/>
             <ng-container *ngIf="!dataService.isLoading">
@@ -16,7 +16,7 @@
                 </li>
             </ng-container>
         </ul>
-        <ul #ul2>
+        <ul>
             <h5>In progress ({{ dataService.toDoFilter('InProgress').length }})</h5>
             <app-spinner *ngIf="dataService.isLoading" id="spinner"/>
             <ng-container *ngIf="!dataService.isLoading">
@@ -31,7 +31,7 @@
                 </li>
             </ng-container>
         </ul>
-        <ul #ul3>
+        <ul>
             <h5>Complete ({{ dataService.toDoFilter('Complete').length }})</h5>
             <app-spinner *ngIf="dataService.isLoading" id="spinner"/>
             <ng-container *ngIf="!dataService.isLoading">
