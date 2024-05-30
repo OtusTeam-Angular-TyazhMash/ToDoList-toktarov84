@@ -31,22 +31,18 @@
                 >Delete</app-button>
             </ng-container>
             <ng-container *ngIf="data.editedId == item.id">
-                <mat-checkbox 
-                    [checked]="data.getItem(item.id)?.status === 'Complete'"
-                    (click)="data.setStatus(item.id)"
-                ></mat-checkbox>
-                <mat-form-field appearance="outline" subscriptSizing="dynamic">
-                    <input
-                        matInput [(ngModel)]="item.text"
-                        placeholder="Edit your todo"
-                    >
-                </mat-form-field><pre> </pre>
                 <app-button
                     [tooltip]="'Save'"
                     (click)="data.editItem(item.id, item.text)"
                     class="button button--save"
                     [disabled]="!item.text"
                 >Save</app-button>
+                <mat-form-field appearance="outline" subscriptSizing="dynamic">
+                    <input
+                        matInput [(ngModel)]="item.text"
+                        placeholder="Edit your todo"
+                    >
+                </mat-form-field>
             </ng-container>
         </li>
     </ng-container>

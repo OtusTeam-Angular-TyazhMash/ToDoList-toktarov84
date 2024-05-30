@@ -9,8 +9,8 @@ export class ObservablesService {
     private httpClient: HttpClient
   ) { }
 
-  httpGet(url: string) {
-    return this.httpClient.get(url);
+  httpGet<T>(url: string) {
+    return this.httpClient.get<T>(url);
   }
 
   httpPost(url: string, object: Object) {

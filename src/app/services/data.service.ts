@@ -56,10 +56,10 @@ export class DataService {
   loadItemListFromServer() {
     this.isLoading = true;
 
-    this.observable.httpGet(this.url)
+    this.observable.httpGet<Item[]>(this.url)
     .subscribe({
-      next: (items) => {
-        this.itemList = items as Item[];
+      next: items => {
+        this.itemList = items;
         setTimeout(() => this.isLoading = false, 200);
         this.toastService.showToast("Data received");
       }
