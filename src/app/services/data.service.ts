@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ToastService } from 'src/app/services/toast.service';
-import { HttpClient } from "@angular/common/http";
 import { Router } from '@angular/router';
-import { take } from 'rxjs';
+import { ObservablesService } from './observables.service';
 
 export class Status {
   static ALL = null;
@@ -32,8 +31,8 @@ export class DataService {
 
   constructor(
     private toastService: ToastService,
-    private httpClient: HttpClient,
-    private router: Router
+    private router: Router,
+    private observable: ObservablesService
   ) {
     this.loadItemListFromServer();
   }
@@ -57,11 +56,10 @@ export class DataService {
   loadItemListFromServer() {
     this.isLoading = true;
 
-    this.httpClient.get<Item[]>(this.url).pipe(
-      take(1)
-    ).subscribe({
+    this.observable.httpGet(this.url)
+    .subscribe({
       next: (items) => {
-        this.itemList = items;
+        this.itemList = items as Item[];
         setTimeout(() => this.isLoading = false, 200);
         this.toastService.showToast("Data received");
       }
@@ -71,15 +69,15 @@ export class DataService {
   addItem(text: string, addDescription: string) {
     if (!text) return;
 
-    this.httpClient.post<Item>(this.url, {
-      text: text, 
-      description: addDescription, 
-      status: Status.InProgress
-    }).pipe(
-      take(1)
+    this.observable.httpPost(this.url,
+      {
+        text: text,
+        description: addDescription,
+        status: Status.InProgress
+      }
     ).subscribe({
       next: (item) => {
-        this.itemList.push(item);
+        this.itemList.push(item as Item);
         this.addText = '';
         this.addDescription = '';
         this.toastService.showToast("Item added");
@@ -88,9 +86,8 @@ export class DataService {
   }
 
   deleteItem(id: number) {
-    this.httpClient.delete(this.url +'/'+ id).pipe(
-      take(1)
-    ).subscribe({
+    this.observable.httpDelete(this.url, id)
+    .subscribe({
       next: () => {
         this.itemList = this.itemList.filter(it => it.id !== id);
         this.toastService.showToast("Item deleted")
@@ -101,9 +98,8 @@ export class DataService {
   editItem(text: string) {
     if (!text) return;
 
-    this.httpClient.patch(this.url +'/'+ this.editedId, {text: text}).pipe(
-      take(1)
-    ).subscribe({
+    this.observable.httpPatch(this.url, this.editedId, {text: text})
+    .subscribe({
       next: () => {
         this.getItem(this.editedId)!.text = text;
         this.editedId = -1;
@@ -117,9 +113,8 @@ export class DataService {
     if (this.getItem(id)!.status === Status.InProgress) {
       status = Status.Complete;
     }
-    this.httpClient.patch(this.url +'/'+ id, {status: status}).pipe(
-      take(1)
-    ).subscribe({
+    this.observable.httpPatch(this.url, id, {status: status})
+    .subscribe({
       next: () => {
         this.getItem(id)!.status = status;
       }
