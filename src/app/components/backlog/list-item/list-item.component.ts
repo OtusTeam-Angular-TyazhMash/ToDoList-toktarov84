@@ -8,5 +8,5 @@ import { DataService } from '../../../services/data.service';
 })
 
 export class ListItemComponent {
-  constructor(protected dataService: DataService) {}
+  constructor(protected data: DataService) {}
 }

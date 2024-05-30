@@ -22,9 +22,8 @@ export class Item {
 export class DataService {
   url: string = 'http://localhost:3000/tasks';
   itemList!: Item[];
-  addText: string = '';
-  editText: string = '';
-  addDescription: string = '';
+  text: string = '';
+  description: string = '';
   isLoading: boolean = true;
   editedId!: number;
   filterStatus: Status|null = Status.ALL;
@@ -39,6 +38,7 @@ export class DataService {
 
   deselect() {
     this.router.navigate(['']);
+    this.editedId = -1;
   }
 
   getItem(id: number) {
@@ -78,8 +78,8 @@ export class DataService {
     ).subscribe({
       next: (item) => {
         this.itemList.push(item as Item);
-        this.addText = '';
-        this.addDescription = '';
+        this.text = '';
+        this.description = '';
         this.toastService.showToast("Item added");
       }
     });
@@ -95,13 +95,13 @@ export class DataService {
     });
   }
 
-  editItem(text: string) {
+  editItem(id: number, text: string) {
     if (!text) return;
 
-    this.observable.httpPatch(this.url, this.editedId, {text: text})
+    this.observable.httpPatch(this.url, id, {text: text})
     .subscribe({
       next: () => {
-        this.getItem(this.editedId)!.text = text;
+        this.getItem(id)!.text = text;
         this.editedId = -1;
         this.toastService.showToast("Item edited")
       }
@@ -119,14 +119,5 @@ export class DataService {
         this.getItem(id)!.status = status;
       }
     });
-  }
-
-  setEditedItemId(id: number) {
-    if (this.editedId == id) {
-      this.editedId = -1;
-    } else {
-      this.editText = this.getItem(id)!.text;
-      this.editedId = id;
-    }
   }
 }
