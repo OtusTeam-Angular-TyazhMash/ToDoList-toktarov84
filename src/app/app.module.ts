@@ -7,7 +7,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 
 import { AppComponent } from './app.component';
-import { ToDoListComponent } from './components/backlog/backlog.component';
+import { BacklogComponent } from './components/backlog/backlog.component';
 import { ListItemComponent } from './components/backlog/list-item/list-item.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
@@ -20,7 +20,7 @@ import { BoardComponent } from './components/board/board.component';
 @NgModule({
   declarations: [
     AppComponent,
-    ToDoListComponent,
+    BacklogComponent,
     ListItemComponent,
     TodoCreateItemComponent,
     ToDoItemViewComponent,

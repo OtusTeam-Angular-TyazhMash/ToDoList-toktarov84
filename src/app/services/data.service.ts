@@ -31,7 +31,7 @@ export class DataService {
   constructor(
     private toastService: ToastService,
     private router: Router,
-    private observable: ObservablesService
+    private observables: ObservablesService
   ) {
     this.loadItemListFromServer();
   }
@@ -56,7 +56,7 @@ export class DataService {
   loadItemListFromServer() {
     this.isLoading = true;
 
-    this.observable.httpGet<Item[]>(this.url)
+    this.observables.httpGet<Item[]>(this.url)
     .subscribe({
       next: items => {
         this.itemList = items;
@@ -69,7 +69,7 @@ export class DataService {
   addItem(text: string, addDescription: string) {
     if (!text) return;
 
-    this.observable.httpPost(this.url,
+    this.observables.httpPost(this.url,
       {
         text: text,
         description: addDescription,
@@ -86,7 +86,7 @@ export class DataService {
   }
 
   deleteItem(id: number) {
-    this.observable.httpDelete(this.url, id)
+    this.observables.httpDelete(this.url, id)
     .subscribe({
       next: () => {
         this.itemList = this.itemList.filter(it => it.id !== id);
@@ -98,7 +98,7 @@ export class DataService {
   editItem(id: number, text: string) {
     if (!text) return;
 
-    this.observable.httpPatch(this.url, id, {text: text})
+    this.observables.httpPatch(this.url, id, {text: text})
     .subscribe({
       next: () => {
         this.getItem(id)!.text = text;
@@ -113,7 +113,7 @@ export class DataService {
     if (this.getItem(id)!.status === Status.InProgress) {
       status = Status.Complete;
     }
-    this.observable.httpPatch(this.url, id, {status: status})
+    this.observables.httpPatch(this.url, id, {status: status})
     .subscribe({
       next: () => {
         this.getItem(id)!.status = status;

@@ -1,23 +1,28 @@
 import { ApplicationRef, ComponentRef, EmbeddedViewRef, Injectable, createComponent } from '@angular/core';
 import { ToastsComponent } from '../shared/toasts/toasts.component';
+import { BehaviorSubject, delay, take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ToastService {
   private componentRef: ComponentRef<ToastsComponent> | null = null;
-  private toasts: string[] = [];
+  private toasts$ = new BehaviorSubject<string[]>([]);
 
   constructor(private applicationRef: ApplicationRef) { }
 
   showToast(toast: string, duration: number = 5000) {
-    this.toasts.push(toast);
     this.createToastComponent();
-    setTimeout(() => this.deleteToast(), duration);
+    this.toasts$.next([...this.toasts$.value, toast]);
+    this.toasts$.pipe(
+      delay(duration), take(1)
+    ).subscribe(() => {
+      this.deleteToast();
+    });
   }
 
   get getToasts() {
-    return this.toasts;
+    return this.toasts$.value;
   }
 
   private createToastComponent(): void {
@@ -33,6 +38,6 @@ export class ToastService {
   }
 
   private deleteToast(): void {
-    this.toasts = this.toasts.splice(1);
+    this.toasts$.value.splice(0, 1);
   }
 }

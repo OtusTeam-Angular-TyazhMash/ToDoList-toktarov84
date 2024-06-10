@@ -1,3 +1,6 @@
+:host {
+    cursor: default;
+}
 ul {
     width: fit-content;
     height: fit-content;
@@ -13,7 +16,6 @@ li {
     padding: 0 0.5em 0 0.5em;
     align-items: center;
     font-size: 1.5em;
-    cursor: default;
 }
 li.selected {
     background-color: rgb(153, 177, 245);
