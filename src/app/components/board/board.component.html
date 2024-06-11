@@ -1,7 +1,7 @@
 <div>
     <h1>Board</h1>
     <span>
-        <ul *ngIf="data.toDoFilter(null)|async as nullFilter">
+        <ul *ngIf="data.getItemList(null)|async as nullFilter">
             <h5>All ({{ nullFilter.length }})</h5>
             <app-spinner *ngIf="data.isLoading" id="spinner"/>
             <ng-container *ngIf="!data.isLoading">
@@ -14,7 +14,7 @@
                 </li>
             </ng-container>
         </ul>
-        <ul *ngIf="data.toDoFilter('InProgress')|async as inProgressFilter">
+        <ul *ngIf="data.getItemList('InProgress')|async as inProgressFilter">
             <h5>In progress ({{ inProgressFilter.length }})</h5>
             <app-spinner *ngIf="data.isLoading" id="spinner"/>
             <ng-container *ngIf="!data.isLoading">
@@ -27,7 +27,7 @@
                 </li>
             </ng-container>
         </ul>
-        <ul *ngIf="data.toDoFilter('Complete')|async as completeFilter">
+        <ul *ngIf="data.getItemList('Complete')|async as completeFilter">
             <h5>Complete ({{ completeFilter.length }})</h5>
             <app-spinner *ngIf="data.isLoading" id="spinner"/>
             <ng-container *ngIf="!data.isLoading">

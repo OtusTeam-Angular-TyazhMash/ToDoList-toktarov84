@@ -8,16 +8,8 @@ import { DataService } from './services/data.service';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent implements OnDestroy {
+export class AppComponent {
   title = 'TasksBoard';
 
-  constructor(
-    protected data: DataService,
-    private observables: ObservablesService
-  ) {}
-
-  ngOnDestroy(): void {
-    this.observables.destroy$.next("destroy");
-    this.observables.destroy$.complete();
-  }
+  constructor(protected data: DataService) {}
 }

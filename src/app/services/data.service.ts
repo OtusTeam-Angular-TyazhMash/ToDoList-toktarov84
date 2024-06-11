@@ -21,8 +21,8 @@ export class Item {
   providedIn: 'root'
 })
 export class DataService {
-  url: string = 'http://localhost:3000/tasks';
-  itemList$ = new BehaviorSubject<Item[]>([]);
+  private url: string = 'http://localhost:3000/tasks';
+  private itemList$ = new BehaviorSubject<Item[]>([]);
   text: string = '';
   description: string = '';
   isLoading: boolean = true;
@@ -34,7 +34,7 @@ export class DataService {
     private router: Router,
     private observables: ObservablesService
   ) {
-    this.loadItemListFromServer();
+    this.loadItemList();
   }
 
   deselect() {
@@ -42,15 +42,11 @@ export class DataService {
     this.editedId = -1;
   }
 
-  get getItems() {
-    return this.itemList$.asObservable();
-  }
-
   getItem(id: number) {
     return this.itemList$.value.find(item => item.id === id);
   }
 
-  toDoFilter(filterStatus: Status|null) {
+  getItemList(filterStatus: Status|null) {
     if (filterStatus == null) return this.itemList$;
 
     return this.itemList$.pipe(
@@ -58,7 +54,7 @@ export class DataService {
     );
   }
 
-  loadItemListFromServer() {
+  loadItemList() {
     this.isLoading = true;
 
     this.observables.httpGet<Item[]>(this.url)

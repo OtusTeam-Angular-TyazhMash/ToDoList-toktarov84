@@ -6,8 +6,6 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class ObservablesService {
-  destroy$ = new Subject();
-
   constructor(
     private httpClient: HttpClient
   ) { }

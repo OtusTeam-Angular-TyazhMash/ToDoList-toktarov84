@@ -4,7 +4,7 @@
     <mat-radio-button value="InProgress">InProgress</mat-radio-button>
     <mat-radio-button value="Complete">Complete</mat-radio-button>
 </mat-radio-group>
-<ul *ngIf="(data.toDoFilter(data.filterStatus) | async) as itemList">
+<ul *ngIf="data.getItemList(data.filterStatus)|async as itemList">
     <app-spinner *ngIf="data.isLoading" id="spinner"/>
     <ng-container *ngIf="!data.isLoading">
         <li
@@ -22,7 +22,7 @@
                     (click)="data.setStatus(item.id)"
                 ></mat-checkbox>
                 <div id="task_text">
-                    {{data.getItem(item.id)?.text}}
+                    {{ data.getItem(item.id)?.text }}
                 </div>
                 <app-button
                     [tooltip]="'Delete'"
