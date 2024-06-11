@@ -4,12 +4,12 @@
     <mat-radio-button value="InProgress">InProgress</mat-radio-button>
     <mat-radio-button value="Complete">Complete</mat-radio-button>
 </mat-radio-group>
-<ul>
+<ul *ngIf="(data.toDoFilter(data.filterStatus) | async) as itemList">
     <app-spinner *ngIf="data.isLoading" id="spinner"/>
     <ng-container *ngIf="!data.isLoading">
         <li
             [tooltip]="'Task'"
-            *ngFor="let item of data.toDoFilter(data.filterStatus)"
+            *ngFor="let item of itemList"
             (dblclick)="data.editedId = item.id"
             [routerLink]="[item.id]"
             routerLinkActive="selected"

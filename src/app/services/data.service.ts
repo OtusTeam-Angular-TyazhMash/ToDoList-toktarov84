@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ToastService } from 'src/app/services/toast.service';
 import { Router } from '@angular/router';
 import { ObservablesService } from './observables.service';
+import { BehaviorSubject, delay, map, take } from 'rxjs';
 
 export class Status {
   static ALL = null;
@@ -21,7 +22,7 @@ export class Item {
 })
 export class DataService {
   url: string = 'http://localhost:3000/tasks';
-  itemList!: Item[];
+  itemList$ = new BehaviorSubject<Item[]>([]);
   text: string = '';
   description: string = '';
   isLoading: boolean = true;
@@ -41,15 +42,19 @@ export class DataService {
     this.editedId = -1;
   }
 
+  get getItems() {
+    return this.itemList$.asObservable();
+  }
+
   getItem(id: number) {
-    return this.itemList.find(item => item.id === id);
+    return this.itemList$.value.find(item => item.id === id);
   }
 
   toDoFilter(filterStatus: Status|null) {
-    if (filterStatus == null) return this.itemList;
+    if (filterStatus == null) return this.itemList$;
 
-    return [...this.itemList].filter(
-      item => item.status === filterStatus
+    return this.itemList$.pipe(
+      map(items => items.filter(item => item.status === filterStatus))
     );
   }
 
@@ -59,9 +64,13 @@ export class DataService {
     this.observables.httpGet<Item[]>(this.url)
     .subscribe({
       next: items => {
-        this.itemList = items;
-        setTimeout(() => this.isLoading = false, 200);
-        this.toastService.showToast("Data received");
+        this.itemList$.next(items);
+        this.itemList$.pipe(
+          delay(200), take(1)
+        ).subscribe(() => {
+          this.isLoading = false;
+          this.toastService.showToast("Data received");
+        });
       }
     });
   }
@@ -77,7 +86,7 @@ export class DataService {
       }
     ).subscribe({
       next: (item) => {
-        this.itemList.push(item as Item);
+        this.itemList$.next([...this.itemList$.value, item as Item]);
         this.text = '';
         this.description = '';
         this.toastService.showToast("Item added");
@@ -89,7 +98,7 @@ export class DataService {
     this.observables.httpDelete(this.url, id)
     .subscribe({
       next: () => {
-        this.itemList = this.itemList.filter(it => it.id !== id);
+        this.itemList$.next(this.itemList$.value.filter(it => it.id !== id));
         this.toastService.showToast("Item deleted")
       } 
     });
