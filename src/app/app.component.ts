@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { ObservablesService } from './services/observables.service';
+import { DataService } from './services/data.service';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +9,7 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
-  title = 'hw1_toDoList';
+  title = 'TasksBoard';
+
+  constructor(protected data: DataService) {}
 }
