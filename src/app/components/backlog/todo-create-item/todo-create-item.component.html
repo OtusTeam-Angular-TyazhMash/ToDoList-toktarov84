@@ -1,12 +1,12 @@
 <span id="task_block">
     <mat-form-field appearance="outline" subscriptSizing="dynamic">
-        <input
+        <input i18n i18n-placeholder
             matInput [(ngModel)]="toDoListService.text"
             placeholder="Add your new todo"
         >
     </mat-form-field>
-    <app-button
-        [tooltip]="'Add task'"
+    <app-button i18n
+        [tooltip]="translations.addTask"
         (click)="toDoListService.addItem(toDoListService.text, toDoListService.description)"
         class="button button--add"
         [disabled]="!toDoListService.text"
@@ -14,7 +14,7 @@
 </span>
 <span id="description_block">
     <mat-form-field appearance="outline" subscriptSizing="dynamic">
-        <textarea
+        <textarea i18n i18n-placeholder
             matInput [(ngModel)]="toDoListService.description"
             placeholder="Description"
          ></textarea>

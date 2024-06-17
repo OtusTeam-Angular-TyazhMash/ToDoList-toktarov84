@@ -16,6 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutesComponent } from './app.routes';
 import { ToDoItemViewComponent } from './components/backlog/to-do-item-view/to-do-item-view.component';
 import { BoardComponent } from './components/board/board.component';
+import { MatMenuModule } from '@angular/material/menu'
+import { MatIconModule } from '@angular/material/icon'
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { BoardComponent } from './components/board/board.component';
     MatCheckboxModule,
     MatRadioModule,
     SharedModule,
-    AppRoutesComponent
+    AppRoutesComponent,
+    MatMenuModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

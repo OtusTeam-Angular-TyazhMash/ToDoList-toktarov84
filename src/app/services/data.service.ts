@@ -3,6 +3,7 @@ import { ToastService } from 'src/app/services/toast.service';
 import { Router } from '@angular/router';
 import { ObservablesService } from './observables.service';
 import { BehaviorSubject, delay, map, take } from 'rxjs';
+import { translations } from 'src/locale/translations';
 
 export class Status {
   static ALL = null;
@@ -65,7 +66,7 @@ export class DataService {
           delay(200), take(1)
         ).subscribe(() => {
           this.isLoading = false;
-          this.toastService.showToast("Data received");
+          this.toastService.showToast(translations.dataReceived);
         });
       }
     });
@@ -85,7 +86,7 @@ export class DataService {
         this.itemList$.next([...this.itemList$.value, item as Item]);
         this.text = '';
         this.description = '';
-        this.toastService.showToast("Item added");
+        this.toastService.showToast(translations.itemAdded);
       }
     });
   }
@@ -95,7 +96,7 @@ export class DataService {
     .subscribe({
       next: () => {
         this.itemList$.next(this.itemList$.value.filter(it => it.id !== id));
-        this.toastService.showToast("Item deleted")
+        this.toastService.showToast(translations.itemDeleted)
       } 
     });
   }
@@ -108,7 +109,7 @@ export class DataService {
       next: () => {
         this.getItem(id)!.text = text;
         this.editedId = -1;
-        this.toastService.showToast("Item edited")
+        this.toastService.showToast(translations.itemEdited)
       }
     });
   }

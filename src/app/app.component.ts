@@ -1,6 +1,6 @@
-import { Component, OnDestroy } from '@angular/core';
-import { ObservablesService } from './services/observables.service';
+import { Component, } from '@angular/core';
 import { DataService } from './services/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,5 +11,8 @@ import { DataService } from './services/data.service';
 export class AppComponent {
   title = 'TasksBoard';
 
-  constructor(protected data: DataService) {}
+  constructor(
+    protected data: DataService,
+    public router: Router
+  ) {}
 }
