@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, } from '@angular/core';
+import { DataService } from './services/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +9,10 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
-  title = 'hw1_toDoList';
+  title = 'TasksBoard';
+
+  constructor(
+    protected data: DataService,
+    public router: Router
+  ) {}
 }
